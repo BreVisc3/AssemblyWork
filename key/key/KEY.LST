@@ -1,0 +1,152 @@
+Microsoft (R) Macro Assembler Version 6.11		    09/24/24 15:34:46
+key.asm							     Page 1 - 1
+
+
+				;--------------------------------------------------------------------
+				;   Program:     COPYFILE *** MASM VERSION ***
+				;
+				;   Function:    This program will read characters from the standard input
+				;                device.  This can be the keyboard or a file that has been
+				;                redirected to the standard input.
+				;
+				;                It allows the software to examine each character.
+				;
+				;                The character is then written to the standard output device.
+				;                This can be the diplay or a file that has been redirected
+				;                to the standard output.
+				;
+				;                The program terminates when the character that has been
+				;                read and echoed matches the character stored in the
+				;                variable named 'end_char'.
+				;
+				;                If reading from the keyboard then
+				;                set 'end_char' to be 0Dh (enter key).
+				;
+				;                If reading from a file then
+				;                set 'end_char' to be 1Ah (DOS eof character).
+				;
+				;                These are the four possible combinations
+				;                for reading and writing data:
+				;                -----------------------------------------------------------
+				;                copyfile                    input=keyboard   output=display
+				;                copyfile < input            input=file       output=display
+				;                copyfile > output           input=keyboard   output=file
+				;                copyfile < input > output   input=file       output=file
+				;
+				;   Restriction: The program hangs if you copy a file without the
+				;                an EOF character.
+				;
+				;   Owner:       Dana Lasher
+				;
+				;   Date         Reason
+				;   ----         ------
+				;   07/18/2000   New version
+				;
+				;---------------------------------------
+				         .model    small               ; 64k data and 64k code model
+				         .8086                         ; only allow 8086 instructions
+				         .stack    256                 ; stack size is 256 bytes
+				;---------------------------------------
+
+ 0000				         .data
+				;---------------------------------------
+				; The program ends when the last character
+				; read and echoed matches this variable.
+				; 1Ah=EOF   0Dh=ENTER
+				;---------------------------------------
+ 0000 0D			end_char db        0Dh                 ; termination character
+				;---------------------------------------
+ 0000				         .code
+				;---------------------------------------
+				; Establish addressability to the data segment.
+				;---------------------------------------
+ 0000				start:                                 ;
+ 0000  B8 ---- R		         mov       ax,@data            ; establish addressability
+ 0003  8E D8			         mov       ds,ax               ; for the data segment
+				;---------------------------------------
+				; Read a charcter without echo.
+				;---------------------------------------
+ 0005				getloop:                               ;
+ 0005  B4 08			         mov       ah,8                ; read without echo a character
+ 0007  CD 21			         int       21h                 ; how: set ah=8 and issue int 21
+				;---------------------------------------
+				; The character is now available in the
+				; al register for processing.
+				;---------------------------------------
+						 ;cmp       al, [end_char]       ; is NULL terminator?
+						 ;je        exit				    ; if null jmp exit
+
+ 0009  3C 20					 cmp       al,20h              ; compare with space
+ 000B  74 16			         je        write_char          ; if equal, jump to write_char
+ 000D  3C 2E			         cmp       al,2Eh              ; compare with period
+ 000F  74 12			         je        write_char          ; if equal, jump to write_char
+
+ 0011  3C 41			         cmp       al,41h              ; compare with 'A'              cmp       al, 41h
+ 0013  72 F0			         jb        getloop             ; if below 'A', discard
+ 0015  3C 5A			         cmp       al,5Ah              ; compare with 'Z'
+ 0017  76 0A			         jbe 	   write_char          ; jump to write_char
+						 
+				                                       ; Check if character is an uppercase letter (A-Z)
+ 0019  3C 61			         cmp       al,61h              ; compare with 'a'
+ 001B  72 E8			         jb        getloop             ; if below 'a', check for uppercase letters
+ 001D  3C 7A			         cmp       al,7Ah              ; compare with 'z'
+ 001F  77 E4			         ja        getloop             ; if above 'z', check for other characters
+ 0021  2C 20			         sub       al,20h        	   ; jump to write_char
+						
+				;---------------------------------------
+				; Write out the character and loop if it
+				; is not the terminating character.
+				;---------------------------------------
+ 0023				write_char:
+ 0023  8A D0			         mov       dl,al               ; move the char to dl
+ 0025  B4 02			         mov       ah, 2               ; write the character from dl
+ 0027  CD 21			         int       21h          	   ; how: set ah=2 and issue int 21
+						 
+ 0029  3C 2E					 cmp       al, 2Eh			   ; 
+ 002B  75 D8					 jne       getloop             ; 
+				;---------------------------------------
+				; When the terminating characater has
+				; been read and echoed, return to DOS.
+				;---------------------------------------
+ 002D				exit:                                  ; we processed the terminating character
+ 002D  B8 4C00			         mov       ax,4c00h            ; set correct exit code in ax
+ 0030  CD 21			         int       21h                 ; int 21 will terminate program
+				         end       start               ; execution begins at the label start
+				;---------------------------------------
+Microsoft (R) Macro Assembler Version 6.11		    09/24/24 15:34:46
+key.asm							     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+DGROUP . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	16 Bit	 0001	  Word	  Public  'DATA'	
+STACK  . . . . . . . . . . . . .	16 Bit	 0100	  Para	  Stack	  'STACK'	 
+_TEXT  . . . . . . . . . . . . .	16 Bit	 0032	  Word	  Public  'CODE'	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 0000h	 
+@DataSize  . . . . . . . . . . .	Number	 0000h	 
+@Interface . . . . . . . . . . .	Number	 0000h	 
+@Model . . . . . . . . . . . . .	Number	 0002h	 
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 DGROUP
+@fardata?  . . . . . . . . . . .	Text   	 FAR_BSS
+@fardata . . . . . . . . . . . .	Text   	 FAR_DATA
+@stack . . . . . . . . . . . . .	Text   	 DGROUP
+end_char . . . . . . . . . . . .	Byte	 0000	  _DATA	
+exit . . . . . . . . . . . . . .	L Near	 002D	  _TEXT	
+getloop  . . . . . . . . . . . .	L Near	 0005	  _TEXT	
+start  . . . . . . . . . . . . .	L Near	 0000	  _TEXT	
+write_char . . . . . . . . . . .	L Near	 0023	  _TEXT	
+
+	   0 Warnings
+	   0 Errors

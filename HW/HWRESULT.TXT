@@ -1,0 +1,13 @@
+CSC23x:  Homework Grades    (code=3-57776-8) Ver 580110
+Student:             Viscount,              Brendan 
+Created: 10/06/24 Updated:  10/22 14:46:23  
+
+HW#  Started        Status         Grade
+HW5  10/07/24       D 10/07 12:00  068               
+HW6  10/07/24       D 10/07 15:39  095               
+HW7  10/08/24       D 10/08 15:12  100               
+HW8  10/22/24       D 10/22 14:45  100               
+VER=X383041F1D0R00C1D0C0P6:0:61 Z142200V09/02005905826
+
+End of file     
+-

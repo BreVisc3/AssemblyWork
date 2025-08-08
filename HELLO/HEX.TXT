@@ -1,0 +1,4 @@
+test1.txt
+
+0000    41 42 43 0D 0A 44 45 46 0D 0A 0D 0A 0D 0A 0D 0A    ABC  DEF        
+0010    0D 0A                                                              

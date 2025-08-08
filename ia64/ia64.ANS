@@ -1,0 +1,28 @@
+Choose "x86-64 gcc 12.2” as the compiler
+
+1.	How many instructions are written?
+There are 62 instructions
+
+2.	Find an instruction that we did not go over in class and describe it in your own words
+We haven’t used movzx in class, but it functions similarly to the normal mov command except it also sets the parts of the 
+destination register that were not directly implied by the register reference’s size to 0
+
+3.	Set compiler option to “-O1”, what happened to the number of instructions?
+The instruction count dropped down to 58
+
+4.	Find another instruction that we did not go over in class and describe it in your own words
+The test instruction is used which performs an and operation to set flags but it doesn’t store the result
+
+5.	Set compiler option to “-O2”, what happened to the number of instructions?
+The number of instructions went up to 91
+
+Change compiler to “arm64 msvc v19.33” with no compiler options
+6.	How many instructions are written?
+There are 112 instructions written
+
+7.	Find an instruction that we did not go over in class and describe it in your own words
+This implementation used the uxtb instruction which extracts the least significant byte of the source and stores it in 
+the destination operand with 0 to fill the remaining space in the operand
+
+8.	Set compiler option to “-O1”, what happened to the number of instructions?
+The number of instructions goes down to 51

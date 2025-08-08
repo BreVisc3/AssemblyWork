@@ -1,0 +1,108 @@
+Test date: 09/24/24  15:35:09 
+The number of times you used the grading program is 15 
+In the business world, your customer replaces the grading program. 
+The goal is a correct program with the fewest grading attempts. 
+Key Grading System Version 4.1
+Student: Last=Viscount             First=Brendan              Type=Individual          
+Grading program history
+       User Test.    Date: 09/18/24  14:33:39  keyboard     test         
+       User Test.    Date: 09/18/24  14:34:39  nt           test         
+       User Test.    Date: 09/18/24  14:35:10  keyboard     test         
+       User Test.    Date: 09/18/24  14:35:16  keyboard     test         
+   *** Grading Run.  Date: 09/18/24  14:36:03 
+       User Test.    Date: 09/18/24  14:40:26  nt           test         
+       User Test.    Date: 09/18/24  14:51:57  keyboard     test         
+       User Test.    Date: 09/18/24  14:55:40  keyboard     test         
+       User Test.    Date: 09/18/24  14:56:59  keyboard     test         
+       User Test.    Date: 09/18/24  15:02:55  nt           test         
+       User Test.    Date: 09/18/24  15:07:50  nt           test         
+       User Test.    Date: 09/18/24  15:28:55  nt           test         
+   *** Grading Run.  Date: 09/18/24  15:29:01 
+       User Test.    Date: 09/18/24  15:29:12  keyboard     test         
+       User Test.    Date: 09/18/24  15:32:39  nt           test         
+       User Test.    Date: 09/18/24  15:40:45  keyboard     test         
+       User Test.    Date: 09/18/24  16:28:36  nt           test         
+       User Test.    Date: 09/18/24  16:28:45  keyboard     test         
+   *** Grading Run.  Date: 09/18/24  16:29:48 
+       User Test.    Date: 09/18/24  16:31:43  keyboard     test         
+   *** Grading Run.  Date: 09/18/24  16:35:02 
+       User Test.    Date: 09/18/24  16:42:11  keyboard     test         
+       User Test.    Date: 09/18/24  16:42:37  nt           test         
+       User Test.    Date: 09/18/24  19:26:48  keyboard     test         
+       User Test.    Date: 09/18/24  19:39:58  keyboard     test         
+       User Test.    Date: 09/18/24  19:40:07  keyboard     test         
+       User Test.    Date: 09/18/24  19:40:49  nt           test         
+       User Test.    Date: 09/18/24  19:43:32  keyboard     test         
+   *** Grading Run.  Date: 09/19/24  10:21:22 
+       User Test.    Date: 09/20/24  15:04:52  keyboard     test         
+   *** Grading Run.  Date: 09/20/24  15:05:24 
+       User Test.    Date: 09/20/24  15:16:13  keyboard     test         
+       User Test.    Date: 09/20/24  15:16:30  nt           test         
+   *** Grading Run.  Date: 09/20/24  15:16:36 
+       User Test.    Date: 09/20/24  15:17:33  keyboard     test         
+   *** Grading Run.  Date: 09/20/24  15:18:34 
+       User Test.    Date: 09/20/24  15:21:52  keyboard     test         
+       User Test.    Date: 09/20/24  15:41:08  keyboard     test         
+       User Test.    Date: 09/20/24  15:41:22  nt           test         
+   *** Grading Run.  Date: 09/20/24  15:41:30 
+       User Test.    Date: 09/20/24  15:47:00  keyboard     test         
+   *** Grading Run.  Date: 09/20/24  15:47:16 
+       User Test.    Date: 09/23/24  19:04:00  keyboard     test         
+       User Test.    Date: 09/23/24  19:05:12  nt           test         
+       User Test.    Date: 09/23/24  19:08:42  nt           test         
+       User Test.    Date: 09/23/24  19:17:27  nt           test         
+   *** Grading Run.  Date: 09/23/24  19:17:37 
+       User Test.    Date: 09/23/24  19:30:56  nt           test         
+   *** Grading Run.  Date: 09/23/24  19:31:03 
+       User Test.    Date: 09/23/24  19:37:45  nt           test         
+   *** Grading Run.  Date: 09/23/24  19:37:53 
+       User Test.    Date: 09/24/24  15:26:51  nt           test         
+       User Test.    Date: 09/24/24  15:26:55  keyboard     test         
+   *** Grading Run.  Date: 09/24/24  15:27:04 
+       User Test.    Date: 09/24/24  15:35:02  nt           test         
+   *** Grading Run.  Date: 09/24/24  15:35:09 
+Running test
+Test ran correctly.
+++ Grade ++   60 = Points earned for correct answers.
+
+-> A major reason for programming in assembler is to maximize efficiency.
+This can be instructions written and/or instructions executed.
+Please read the section in the class notes titled Code Complexity.
+
+We are now analyzing your source code. You will be graded on
+the number of instructions you wrote to solve this problem.
+The target for the number of executable instructions written is:
+20 points for   0 -  20  
+15 points for  21 -  22  
+10 points for  23 -  24 
+05 points for  25 -  26 
+00 points for  27+      
+Your actual counts are:
+Lines ....... 111    Comments ...  76    Labels .......   4   
+Directives ..   6    Variables ..   1    Executables ..  24    McCabe ..   8 
+++ Grade ++   10 = Points earned for code written efficiency.  
+
+The McCabe number for your KEY.ASM is 8 which is considered 
+fine for the KEY assignment and indicates reasonable program structure.
+
+-> Analyzing program documentation. 
+The heuristic algorithms used may have problems with your specific code. 
+Contact the instructor if you detect a problem with your grade. 
+DOCPH-0041 The program header format is adequate. 
+DOCHB-0.88 Use of code block headers is adequate. 
+DOCLC-0.92 Use of line comments is adequate. 
+++ Grade ++   20 = Points earned for correct documentation.    
+
+-> Calculating the total grade for the program.                  
+This grade is subject to adjustment by the instructor.           
+This grade will be reduced by any late submission penalty.       
+++ Grade ++   90 = Total grade generated by the Grading System.  
+
+-> Statistics on testing and grading                             
+    41  = Number of user tests.                                  
+    15  = Number of grading runs to get the program working.     
+     0  = Number of grading runs to improve efficiency or documentation. 
+
++- atyC<6&}xC76&k~C6&juiC86&zuzC?6&Zkyz&jgzk@&6?58:58:&&7;@9;@6?&
+
+Building the file key.ans for electronic submission...
