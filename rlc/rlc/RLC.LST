@@ -1,0 +1,185 @@
+Microsoft (R) Macro Assembler Version 6.11		    11/18/24 23:11:35
+rlc.asm							     Page 1 - 1
+
+
+				;---------------------------------------------------------------------
+				;  Program:      Run Length Coding
+				;
+				;  Function:     Decompresses 1 dimensional run lengths
+				;                This subroutine links with a C main program
+				;
+				;                Add your additional functional comments
+				;
+				;  Owner:		 Brendan Viscount
+				;
+				;  Changes:
+				;  Date          Reason
+				;  ----          ------
+				;  05/16/2017    Original version ... coded to spec design
+				;---------------------------------------------------------------------
+				         .model    small
+				         .8086
+				         public    _rlc
+				;---------------------------------------
+ 0000				         .data                         ;start the data segment
+				;---------------------------------------
+
+ 0000 20				white db 20h    					;white character
+ 0001 DB				black db 0DBh   					;black character
+ 0002 0050				linelength dw 50h                   ;line Length
+ 0004 0F				fillflag db 0Fh
+
+				;---------------------------------------
+ 0000				         .code                         ;start the code segnment
+				;---------------------------------------
+				; Save the registers ... 'C' requires (bp,si,di)
+				; Access the input and output lists
+				;---------------------------------------
+ 0000				_rlc:                                  ;
+ 0000  55			         push      bp                  ;save 'C' register
+ 0001  8B EC			         mov       bp,sp               ;set bp to point to stack
+ 0003  56			         push      si                  ;save 'C' register
+ 0004  57			         push      di                  ;save 'C' register
+ 0005  52					 push      dx           	   ;save 'C' register
+ 0006  51					 push      cx                  ;save 'C' register
+ 0007  53					 push      bx                  ;save 'C' register
+ 0008  50					 push      ax				   ;save 'C' register
+ 0009  8B 76 04			         mov       si,[bp+4]           ;si points to the input compressed data
+ 000C  8B 7E 06			         mov       di,[bp+6]           ;di points to the empty output buffer
+				;---------------------------------------
+				;     PREPARE DATA FOR PROCCESSING
+				;---------------------------------------
+
+ 000F  8C D8					 mov       ax, ds              ; Set Data segment address to extra
+ 0011  8E C0					 mov       es, ax				
+ 0013  FC					 cld                           ; set direction flag for lodsb and stosb to increment
+						 
+ 0014				newline: 
+ 0014  8B 16 0002 R				 mov       dx, [linelength]    ; reset remaining spaces
+ 0018  BB DB20					 mov       bx, 0DB20h          ; Color data storage [black][white]
+				;---------------------------------------
+				;     LOAD DATA FOR 2 RUNS INTO AL
+				;---------------------------------------
+ 001B				process_next:
+ 001B  AC					 lodsb                         ; Load from si to al
+						 
+ 001C  3C 00					 cmp       al, 00h             ; Compare to end of input marker
+ 001E  74 3E					 je        exit                ; Jump to end
+						 
+				;---------------------------------------
+				;     READING FIRST RUN FOR BYTE
+				;---------------------------------------
+ 0020  B9 0004					 mov       cx, 4               ; load into shiftable reg
+ 0023  8A E0					 mov       ah, al              ; Preserve byte data in AH
+ 0025  D2 E8					 shr       al, cl              ; Shift the upper four bits of al to get the first run length
+						 
+ 0027  8A C8					 mov       cl, al              ; Set first length to loop counter register 
+ 0029  8A C3					 mov       al, bl             ; Move current color char into reg used by stosb
+						 
+ 002B  80 F9 0F					 cmp        cl, 00Fh           ; compare to fill byte
+ 002E  74 1B					 je         fill_first         ; jump to fill line   <- IF I'M USING 2 LABELS
+						 
+ 0030  2B D1					 sub       dx, cx              ; Adjust remaining spaces
+						 
+ 0032  F3/ AA					 rep stosb                     ; store AL to DI 
+ 0034  86 DF					 xchg       bl, bh             ; Toggle color (switch between 20h and DBh)
+						 
+				;---------------------------------------
+				;     READING SECOND RUN FOR BYTE
+				;---------------------------------------		 
+ 0036				read_second:
+ 0036  8A C4					 mov        al, ah              ; Load preserved byte into AL
+ 0038  24 0F					 and        al, 0Fh             ; Mask to preserve lower 4 bits (second run)
+						 
+ 003A  8A C8					 mov        cl, al              ; Set counter for second
+ 003C  8A C3					 mov        al, bl              ; Set current color to
+						 
+ 003E  80 F9 0F					 cmp        cl, 00Fh            ; compare to fill byte
+ 0041  74 15					 je         fill_remaining      ; jump to fill line 
+						 
+ 0043  2B D1					 sub        dx, cx              ; Adjust remaining spaces
+						 
+ 0045  F3/ AA					 rep stosb                     ; store Al to DI, CX times
+ 0047  86 DF					 xchg       bl, bh             ; Toggle color
+ 0049  EB D0					 jmp        process_next       ; Repeat for next byte
+						 
+
+				;---------------------------------------
+				;     FILL THE REST OF LINE 
+				;---------------------------------------
+ 004B				fill_first:
+						 ;;;MAYBE USE EXTRA LABEL TO DETERMINE WHERE TO JUMP AFTER
+ 004B  8B CA					 mov       cx, dx              ; set remaining spaces into cx
+ 004D  F3/ AA			         rep stosb                     ; Fill the remaining space with the current color
+ 004F  BB DB20					 mov       bx, 0DB20h          ; Color data storage [black][white]
+ 0052  8B 16 0002 R				 mov       dx, [linelength]    ; reset remaining spaces
+ 0056  EB DE					 jmp       read_second         ; go to processing the lower 4 bits
+ 0058				fill_remaining:
+
+ 0058  8B CA			         mov       cx, dx              ; set remaining spaces into cx
+ 005A  F3/ AA			         rep stosb                     ; Fill the remaining space with the current color
+ 005C  EB B6					 jmp       newline             ; 
+						 
+						 ;;;FIGURE OUT IF FIRST OR SECOND BYTE WAS FILL
+						 
+						; and       ah, 0Fh             ; Mask to preserve lower 4 bits (second run)
+						; cmp       ah, 
+						; je        read_second         ; jump to read second byte if fill was the high 4 bits
+						; jmp       process_next		 ; if fill character was in higher 4 bits jmp read_second
+
+				;---------------------------------------
+				;     RESTORE REGISTERS AND RETURN
+				;---------------------------------------
+ 005E				exit:
+ 005E  58			         pop       ax                  ; Restore registers
+ 005F  5B					 pop	   bx
+ 0060  59					 pop       cx
+ 0061  5A			         pop       dx
+ 0062  5F			         pop       di
+ 0063  5E			         pop       si
+ 0064  5D			         pop       bp
+ 0065  C3			         ret                           ; Return
+				;---------------------------------------
+				         end
+Microsoft (R) Macro Assembler Version 6.11		    11/18/24 23:11:35
+rlc.asm							     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+DGROUP . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	16 Bit	 0005	  Word	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	16 Bit	 0066	  Word	  Public  'CODE'	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 0000h	 
+@DataSize  . . . . . . . . . . .	Number	 0000h	 
+@Interface . . . . . . . . . . .	Number	 0000h	 
+@Model . . . . . . . . . . . . .	Number	 0002h	 
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 DGROUP
+@fardata?  . . . . . . . . . . .	Text   	 FAR_BSS
+@fardata . . . . . . . . . . . .	Text   	 FAR_DATA
+@stack . . . . . . . . . . . . .	Text   	 DGROUP
+_rlc . . . . . . . . . . . . . .	L Near	 0000	  _TEXT	Public
+black  . . . . . . . . . . . . .	Byte	 0001	  _DATA	
+exit . . . . . . . . . . . . . .	L Near	 005E	  _TEXT	
+fill_first . . . . . . . . . . .	L Near	 004B	  _TEXT	
+fill_remaining . . . . . . . . .	L Near	 0058	  _TEXT	
+fillflag . . . . . . . . . . . .	Byte	 0004	  _DATA	
+linelength . . . . . . . . . . .	Word	 0002	  _DATA	
+newline  . . . . . . . . . . . .	L Near	 0014	  _TEXT	
+process_next . . . . . . . . . .	L Near	 001B	  _TEXT	
+read_second  . . . . . . . . . .	L Near	 0036	  _TEXT	
+white  . . . . . . . . . . . . .	Byte	 0000	  _DATA	
+
+	   0 Warnings
+	   0 Errors
