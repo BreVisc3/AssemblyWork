@@ -1,0 +1,155 @@
+Microsoft (R) Macro Assembler Version 6.11		    10/07/24 20:16:35
+tabs.asm						     Page 1 - 1
+
+
+				;--------------------------------------------------------------------
+				;   Program:     COPYFILE *** MASM VERSION ***
+				;
+				;   Function:    This program will read characters from the standard input
+				;                device.  This can be the keyboard or a file that has been
+				;                redirected to the standard input.
+				;
+				;                It allows the software to examine each character.
+				;
+				;                The character is then written to the standard output device.
+				;                This can be the diplay or a file that has been redirected
+				;                to the standard output.
+				;
+				;				 Split tab input to print spaces until the next tab stop
+				;
+				;                The program terminates when the character that has been
+				;                read and echoed matches the character stored in the
+				;                variable named 'end_char'.
+				;   Owner:       Dana Lasher
+				;
+				;   Date         Reason
+				;   ----         ------
+				;   07/18/2000   New version
+				;
+				;---------------------------------------
+				         .model    small               ; 64k data and 64k code model
+				         .8086                         ; only allow 8086 instructions
+				         .stack    256                 ; stack size is 256 bytes
+				;---------------------------------------
+ 0000				         .data
+				;---------------------------------------
+				; The program ends when the last character
+				; read and echoed matches this variable.
+				; 1Ah=EOF   0Dh=ENTER
+				;---------------------------------------
+ 0000 0D			end_char db        0Dh                 ; termination character
+ 0001 09			tab      db        09h				   ; tab characters
+ 0002 0A			tabstop  db        0Ah                 ; column width
+				;---------------------------------------
+ 0000				         .code
+				;---------------------------------------
+				; Establish addressability to the data segment.
+				;---------------------------------------
+ 0000				start:                                 ;
+ 0000  B8 ---- R		         mov       ax,@data            ; establish addressability
+ 0003  8E D8			         mov       ds,ax     		   ; for the data segment
+ 0005  B3 00					 mov 	   bl, 0			   ; set tabstop column count to 0
+						 
+ 0007  26: 80 3E 0080 00			 cmp       byte ptr es:[80h], 0      ; access the CLP count 80h bytes into the extra segment       
+ 000D  74 09					 je        getloop               ; no parameter ... continue with the program      
+ 000F  26: A0 0082				 mov       al, byte ptr es:[82h]     ; parameter entered ... load al with the character    
+ 0013  2C 30					 sub       al, '0'              ; convert to decimal
+ 0015  A2 0002 R				 mov       [tabstop], al         ; set tabstop
+				;---------------------------------------
+				; Read a charcter without echo.
+				;---------------------------------------
+ 0018				getloop:                               ;
+ 0018  B4 08			         mov       ah,8                ; read without echo a character
+ 001A  CD 21			         int       21h                 ; how: set ah=8 and issue int 21
+				;---------------------------------------
+				; The character is now available in the
+				; al register for processing.
+				;---------------------------------------
+						 ;cmp       al, 1Ah			   ; compare to EOF to to jump back to character read
+						 ;je        exit 
+
+ 001C  3A 06 0001 R				 cmp      al, tab			   ; compare to tab character
+ 0020  75 17					 jne	  write_char    	   ; write character if its not a tab
+						 
+ 0022				space:
+ 0022  3A 1E 0002 R				 cmp       bl, [tabstop]	   ; compare 
+ 0026  74 0D					 je        newline			   ; if column is already 10 jump pack
+ 0028  B2 20					 mov       dl, 20h			   ; move ' ' into dl
+ 002A  B4 02					 mov       ah, 2			   	   ; set interupt
+ 002C  CD 21					 int       21h				   ; print space
+ 002E  80 C3 01					 add       bl, 1			   ; increment column
+ 0031  75 EF					 jne       space                ; if not yet reached, continue printing spaces
+ 0033  EB E3			         jmp       getloop              ; once tabstop is reached, read next char
+						
+ 0035				newline:
+ 0035  B3 00					 mov       bl, 0			   ; set column counter to 0
+ 0037  EB DF					 jmp       getloop			   ; jump back to read character
+				;---------------------------------------
+				; Write out the character and loop if it
+				; is not the terminating character.
+				;---------------------------------------
+ 0039				write_char:
+ 0039  8A D0			         mov       dl,al               ; move the char to dl
+ 003B  B4 02			         mov       ah, 2               ; write the character from dl
+ 003D  CD 21			         int       21h    	    	   ; how: set ah=2 and issue int 21
+ 003F  80 C3 01					 add 	   bl, 1               ; increment column
+ 0042  3C 1A					 cmp       al, 1Ah			   ; compare to EOF to to jump back to character read
+ 0044  74 12					 je        exit 
+ 0046  3A 06 0000 R				 cmp       al, end_char		   ; Compare to carraige return
+ 004A  74 E9			 		 je 	   newline             ; set column to 0
+ 004C  3A 1E 0002 R				 cmp       bl, [tabstop]         ;
+ 0050  74 E3					 je        newline             ; set column to 0 if cap reached
+ 0052  3C 0A					 cmp       al, 0Ah         ;
+ 0054  74 DF					 je        newline             ; set column to 0 if line feed
+ 0056  EB C0					 jmp       getloop
+													   
+				;---------------------------------------
+				; When the terminating characater has
+				; been read and echoed, return to DOS.
+				;---------------------------------------
+ 0058				exit:                                  ; we processed the terminating character
+ 0058  B8 4C00			         mov       ax,4c00h            ; set correct exit code in ax
+ 005B  CD 21			         int       21h                 ; int 21 will terminate program
+				         end       start               ; execution begins at the label start
+				;---------------------------------------
+Microsoft (R) Macro Assembler Version 6.11		    10/07/24 20:16:35
+tabs.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+DGROUP . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	16 Bit	 0003	  Word	  Public  'DATA'	
+STACK  . . . . . . . . . . . . .	16 Bit	 0100	  Para	  Stack	  'STACK'	 
+_TEXT  . . . . . . . . . . . . .	16 Bit	 005D	  Word	  Public  'CODE'	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 0000h	 
+@DataSize  . . . . . . . . . . .	Number	 0000h	 
+@Interface . . . . . . . . . . .	Number	 0000h	 
+@Model . . . . . . . . . . . . .	Number	 0002h	 
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 DGROUP
+@fardata?  . . . . . . . . . . .	Text   	 FAR_BSS
+@fardata . . . . . . . . . . . .	Text   	 FAR_DATA
+@stack . . . . . . . . . . . . .	Text   	 DGROUP
+end_char . . . . . . . . . . . .	Byte	 0000	  _DATA	
+exit . . . . . . . . . . . . . .	L Near	 0058	  _TEXT	
+getloop  . . . . . . . . . . . .	L Near	 0018	  _TEXT	
+newline  . . . . . . . . . . . .	L Near	 0035	  _TEXT	
+space  . . . . . . . . . . . . .	L Near	 0022	  _TEXT	
+start  . . . . . . . . . . . . .	L Near	 0000	  _TEXT	
+tabstop  . . . . . . . . . . . .	Byte	 0002	  _DATA	
+tab  . . . . . . . . . . . . . .	Byte	 0001	  _DATA	
+write_char . . . . . . . . . . .	L Near	 0039	  _TEXT	
+
+	   0 Warnings
+	   0 Errors
