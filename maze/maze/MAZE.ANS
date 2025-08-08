@@ -1,0 +1,293 @@
+Test date: 10/22/24  13:54:26 
+The number of times you used the grading program is 8 
+In the business world, your customer replaces the grading program. 
+The goal is a correct program with the fewest grading attempts. 
+Maze Grading System Version 4.0
+Student: Last=Viscount             First=Brendan              Type=Individual          
+Grading and testing history log
+       User Test.    Date: 10/17/24  14:27:32  maze.01      -            
+       User Test.    Date: 10/17/24  14:33:20  maze.01      -            
+       User Test.    Date: 10/17/24  14:33:55  maze.02      -            
+       User Test.    Date: 10/17/24  14:35:11  maze.01      -            
+       User Test.    Date: 10/17/24  14:39:55  maze.01      -            
+       User Test.    Date: 10/17/24  14:40:12  maze.01      -            
+       User Test.    Date: 10/17/24  14:42:58  maze.01      -            
+       User Test.    Date: 10/17/24  16:07:10  maze.01      -            
+       User Test.    Date: 10/17/24  18:10:30  maze.01      -            
+       User Test.    Date: 10/18/24  13:42:36  maze.01      -            
+       User Test.    Date: 10/18/24  13:59:21  maze.01      -            
+       User Test.    Date: 10/18/24  14:03:48  maze.01      -            
+       User Test.    Date: 10/20/24  14:15:17  maze.01      -            
+       User Test.    Date: 10/20/24  14:17:22  maze.01      -            
+       User Test.    Date: 10/20/24  14:17:53  maze.01      -            
+       User Test.    Date: 10/20/24  14:23:30  maze.01      -            
+       User Test.    Date: 10/20/24  14:25:42  maze.01      -            
+       User Test.    Date: 10/20/24  14:26:11  maze.01      -            
+       User Test.    Date: 10/20/24  14:30:04  maze.01      -            
+       User Test.    Date: 10/20/24  14:30:51  maze.01      -            
+       User Test.    Date: 10/20/24  14:31:16  maze.01      -            
+       User Test.    Date: 10/20/24  14:31:40  maze.01      -            
+       User Test.    Date: 10/20/24  14:32:34  maze.01      -            
+       User Test.    Date: 10/20/24  14:33:47  maze.01      -            
+       User Test.    Date: 10/20/24  14:34:15  maze.01      -            
+       User Test.    Date: 10/20/24  14:35:22  maze.01      -            
+       User Test.    Date: 10/20/24  14:37:20  maze.01      -            
+       User Test.    Date: 10/20/24  14:40:18  maze.01      -            
+       User Test.    Date: 10/20/24  14:40:46  maze.01      -            
+       User Test.    Date: 10/20/24  14:41:21  maze.01      -            
+       User Test.    Date: 10/20/24  14:43:44  maze.01      -            
+       User Test.    Date: 10/20/24  14:47:36  maze.01      -            
+       User Test.    Date: 10/20/24  15:10:50  maze.01      -            
+       User Test.    Date: 10/20/24  15:12:02  maze.01      -            
+       User Test.    Date: 10/20/24  15:15:47  maze.01      -            
+       User Test.    Date: 10/20/24  15:16:03  maze.01      -            
+       User Test.    Date: 10/20/24  15:20:23  maze.01      -            
+       User Test.    Date: 10/20/24  15:20:38  maze.01      -            
+       User Test.    Date: 10/20/24  15:27:35  maze.01      -            
+       User Test.    Date: 10/21/24  15:00:59  maze.01      -            
+       User Test.    Date: 10/21/24  15:27:07  maze.01      -            
+       User Test.    Date: 10/21/24  15:40:40  maze.01      -            
+       User Test.    Date: 10/21/24  15:42:35  maze.01      -            
+       User Test.    Date: 10/21/24  15:47:51  maze.01      -            
+       User Test.    Date: 10/21/24  15:55:35  maze.01      -            
+       User Test.    Date: 10/21/24  15:57:46  maze.01      -            
+       User Test.    Date: 10/21/24  16:48:06  maze.01      -            
+   *** Grading Run.  Date: 10/21/24  16:48:50 
+       User Test.    Date: 10/21/24  17:04:50  maze.02      -            
+   *** Grading Run.  Date: 10/21/24  17:05:26 
+       User Test.    Date: 10/21/24  17:12:49  maze.02      -            
+   *** Grading Run.  Date: 10/21/24  17:14:28 
+       User Test.    Date: 10/21/24  17:18:18  maze.02      -            
+   *** Grading Run.  Date: 10/21/24  17:19:05 
+       User Test.    Date: 10/21/24  17:26:16  maze.02      -            
+   *** Grading Run.  Date: 10/21/24  17:26:50 
+       User Test.    Date: 10/21/24  17:30:03  maze.02      -            
+   *** Grading Run.  Date: 10/21/24  17:30:36 
+       User Test.    Date: 10/21/24  17:38:52  maze.02      -            
+   *** Grading Run.  Date: 10/21/24  17:40:55 
+       User Test.    Date: 10/22/24  13:53:10  maze.03      -            
+   *** Grading Run.  Date: 10/22/24  13:54:26 
+Testing against the nextval specification
+Test completed okay
+Testing against non symetrical maze
+Test completed okay
+Testing against a set of random mazes
+Test completed okay
+Testing for correct operation and efficiency
+Building the maze....
+Congratulations! Your mouse has traversed the maze.
+ 
+++ Grade ++   50 = Points earned for correct answers.
+Your executed instruction count = 000006530
+
+++ Grade ++    0 = Points earned for code executed efficiency.
+Target executed: 15 = 0-4999  10 = 5000-5249  5 = 5250-5499  0 = 5500+ 
+
+++ Grade ++    5 = Points for code written. Your count is:  50.
+Target written : 15 = 00-40  10 = 41-45  5 = 46-50  0 = 51+
+
+-> Analyzing program documentation. 
+The heuristic algorithms used may have problems with your specific code. 
+Contact the instructor if you detect a problem with your grade. 
+DOCPH-0022 The program header format is adequate. 
+DOCHB-0.94 Use of code block headers is adequate. 
+DOCLC-0.96 Use of line comments is adequate. 
+++ Grade ++   20 = Points earned for correct documentation.    
+
+-> Calculating the total grade for the program.                  
+This grade is subject to adjustment by the instructor.           
+This grade will be reduced by any late submission penalty.       
+++ Grade ++   75 = Total grade generated by the Grading System.  
+
+-> Statistics on testing and grading                             
+    54  = Number of user tests.                                  
+     8  = Number of grading runs to get the program working.     
+     0  = Number of grading runs to improve efficiency or documentation. 
+
++- atyC;6&}xC6&k~C6&juiC86&zuzC=;&Zkyz&jgzk@&7658858:&&79@;:@8<&
+
+
+
+Building the file maze.ans for electronic submission...
+
+;---------------------------------------------------------------------
+; Program:   nextval subroutine
+;
+; Function:  Find next mouse move in an array 15 by 30.
+;            We can move into a position if its contents is blank ( 20h ).
+;
+; Input:     Calling sequence is:
+;            x    pointer   si
+;            y    pointer   di
+;            dir  pointer   bx
+;            maze pointer   bp
+;
+; Output:    x,y,dir modified in caller's data segment
+;
+; Owner:     Dana A. Lasher
+;
+; Date:      Update Reason
+; --------------------------
+; 11/06/2016 Original version
+;
+;
+;---------------------------------------
+         .model    small               ;64k code and 64k data
+         .8086                         ;only allow 8086 instructions
+         public    nextval             ;allow extrnal programs to call
+;---------------------------------------
+
+
+;---------------------------------------
+         .data                         ;start the data segment
+	
+	
+	column db 30					   ; Width of columns
+		 
+;---------------------------------------
+         .code                         ;start the code segment
+;---------------------------------------
+; Save any modified registers
+;---------------------------------------
+nextval:                               ;
+    ; Input: 
+    ; bp -> maze address
+    ; di -> pointer to current y (1-15)
+    ; si -> pointer to current x (1-30)
+    ; bx -> pointer to current direction (1-4)                                   ;
+                                       ;
+;---------------------------------------
+; Code to make 1 move in the maze
+;---------------------------------------
+    ; Load Y and X from pointers into mouse_data
+	; Push used registers to maintain for caller
+	
+;----------------------------------------------------
+; SAVE REGISTERS TO RESTORE FOR CALLER
+;----------------------------------------------------
+	push ax 										 ; Preserve register ax
+	push dx 										 ; Preserve register dx 
+	push si 										 ; Preserve register si 
+	push bx 										 ; Preserve register bx 
+	
+;----------------------------------------------------
+
+; FIND OFFSET IN MEMORY BASED ON COORDINATES
+
+;----------------------------------------------------
+	mov dh, 0										 ; Clear dh for offset 
+    mov dl, byte ptr [si]                       	 ; Get current X
+;----------------------------------------------------	
+; CHANGE COORDINATE TO 0-BASED FOR OFFSET CALCULATION
+;----------------------------------------------------
+	dec byte ptr [di]                  				 ; Convert Y to 0-based (Y - 1)
+    dec dx                             				 ; Convert X to 0-based (X - 1)
+;----------------------------------------------------	
+; MULTIPLY (Y-1) BY COLUMN WIDTH TO MOVE TO CORRECT ROW
+;----------------------------------------------------
+	mov al, [di]                       				 ; Move Y to DL to use it for multiplication
+	mov bl, [column]                   				 ; Load the column count (30) into BL
+    mul bl       					   				 ; DL * BL -> AX = (Y - 1) * 30
+;----------------------------------------------------	
+; ADD (X-1) TO PRODUCT TO MOVE TO CORRECT COLUMN IN ROW
+;----------------------------------------------------
+	mov si, ax						   				 ; store in a register that can be used for offset
+	add si, dx                         				 ; Final offset: (Y - 1) * 30 + (X - 1) stored in SI
+	pop bx                             			     ; move bx back to original position to use for direction checking
+
+;----------------------------------------------------	
+; CHECK DIRECTION
+;----------------------------------------------------
+moves:											     ; cycle check directions
+	cmp byte ptr [bx], 1 							 ; EAST
+	je moveDown								 		 ; Right from east is Down (south)
+	cmp byte ptr [bx], 2			       			 ; SOUTH
+	je moveLeft						         		 ; Right from south is Left (west)
+	cmp byte ptr [bx], 3 							 ; WEST
+	je moveUp										 ; Right from west is Up (north)
+	
+;----------------------------------------------------	
+
+; CHECK FOR OPEN SPACE
+
+;----------------------------------------------------
+
+;----------------------------------------------------	
+; CHECK EAST
+;----------------------------------------------------
+moveRight:
+	cmp byte ptr ds:[bp + si + 1], 20h			    ; Check the position to the right
+	je moveR										; Equals? jmp to move
+	jmp moveUp										; move to next direction
+;----------------------------------------------------	
+; CHECK SOUTH
+;----------------------------------------------------
+moveDown:
+    cmp byte ptr ds:[bp + si + 30], 20h             ; Check the down position using BL
+	je moveD										; Equals? jmp to move
+	jmp moveRight									; move to next direction
+;----------------------------------------------------	
+; CHECK WEST
+;----------------------------------------------------
+moveLeft:
+	cmp byte ptr ds:[bp + si - 1], 20h				; Check the position to the left
+	je moveL										; move to next direction
+	jmp moveDown
+;----------------------------------------------------	
+; CHECK NORTH
+;----------------------------------------------------
+moveUp:
+	cmp byte ptr ds:[bp + si - 30], 20h		    	; Check the position above
+	jne moveLeft								    ; If it's equal let if fall through
+
+;---------------------------------------------------
+
+; ALTER X and Y COORDINATES TO BE RETURNED	
+
+;---------------------------------------------------
+
+;----------------------------------------------------	
+; MOVE NORTH
+;----------------------------------------------------
+moveU:
+	pop si											; Restore register si
+	dec byte ptr [di]  		                		; decrement y to move up
+	mov byte ptr [bx], 4							; set direction moved
+	jmp exit										; Jump to end of function call because move was made
+;----------------------------------------------------	
+; MOVE EAST
+;----------------------------------------------------
+moveR:												
+    pop si											; Restore register si
+	inc byte ptr [si]  		                		; increment x to move right
+	mov byte ptr [bx], 1							; set direction moved
+	jmp exit										; Jump to end of function call because move was made
+;----------------------------------------------------	
+; MOVE SOUTH
+;----------------------------------------------------
+moveD:
+	pop si											; Restore register si
+	inc byte ptr [di]  		                		; increment y to move down    
+	mov byte ptr [bx], 2							; set direction moved
+	jmp exit										; Jump to end of function call because move was made
+;----------------------------------------------------	
+; MOVE WEST
+;----------------------------------------------------
+moveL:
+	pop si											; Restore register si
+	dec byte ptr [si]  		                		; decrement x to move left
+	mov byte ptr [bx], 3							; set direction moved
+	
+;---------------------------------------
+; Restore registers and return
+;---------------------------------------
+exit:   
+	pop dx											; Restore register dx
+	pop ax											; Restore register ax 
+	inc byte ptr [di]                     
+                                       ;
+         ret                           ;return
+;---------------------------------------
+         end
+		 
+

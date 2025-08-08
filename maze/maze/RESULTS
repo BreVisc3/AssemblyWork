@@ -1,0 +1,112 @@
+Test date: 10/22/24  13:54:26 
+The number of times you used the grading program is 8 
+In the business world, your customer replaces the grading program. 
+The goal is a correct program with the fewest grading attempts. 
+Maze Grading System Version 4.0
+Student: Last=Viscount             First=Brendan              Type=Individual          
+Grading and testing history log
+       User Test.    Date: 10/17/24  14:27:32  maze.01      -            
+       User Test.    Date: 10/17/24  14:33:20  maze.01      -            
+       User Test.    Date: 10/17/24  14:33:55  maze.02      -            
+       User Test.    Date: 10/17/24  14:35:11  maze.01      -            
+       User Test.    Date: 10/17/24  14:39:55  maze.01      -            
+       User Test.    Date: 10/17/24  14:40:12  maze.01      -            
+       User Test.    Date: 10/17/24  14:42:58  maze.01      -            
+       User Test.    Date: 10/17/24  16:07:10  maze.01      -            
+       User Test.    Date: 10/17/24  18:10:30  maze.01      -            
+       User Test.    Date: 10/18/24  13:42:36  maze.01      -            
+       User Test.    Date: 10/18/24  13:59:21  maze.01      -            
+       User Test.    Date: 10/18/24  14:03:48  maze.01      -            
+       User Test.    Date: 10/20/24  14:15:17  maze.01      -            
+       User Test.    Date: 10/20/24  14:17:22  maze.01      -            
+       User Test.    Date: 10/20/24  14:17:53  maze.01      -            
+       User Test.    Date: 10/20/24  14:23:30  maze.01      -            
+       User Test.    Date: 10/20/24  14:25:42  maze.01      -            
+       User Test.    Date: 10/20/24  14:26:11  maze.01      -            
+       User Test.    Date: 10/20/24  14:30:04  maze.01      -            
+       User Test.    Date: 10/20/24  14:30:51  maze.01      -            
+       User Test.    Date: 10/20/24  14:31:16  maze.01      -            
+       User Test.    Date: 10/20/24  14:31:40  maze.01      -            
+       User Test.    Date: 10/20/24  14:32:34  maze.01      -            
+       User Test.    Date: 10/20/24  14:33:47  maze.01      -            
+       User Test.    Date: 10/20/24  14:34:15  maze.01      -            
+       User Test.    Date: 10/20/24  14:35:22  maze.01      -            
+       User Test.    Date: 10/20/24  14:37:20  maze.01      -            
+       User Test.    Date: 10/20/24  14:40:18  maze.01      -            
+       User Test.    Date: 10/20/24  14:40:46  maze.01      -            
+       User Test.    Date: 10/20/24  14:41:21  maze.01      -            
+       User Test.    Date: 10/20/24  14:43:44  maze.01      -            
+       User Test.    Date: 10/20/24  14:47:36  maze.01      -            
+       User Test.    Date: 10/20/24  15:10:50  maze.01      -            
+       User Test.    Date: 10/20/24  15:12:02  maze.01      -            
+       User Test.    Date: 10/20/24  15:15:47  maze.01      -            
+       User Test.    Date: 10/20/24  15:16:03  maze.01      -            
+       User Test.    Date: 10/20/24  15:20:23  maze.01      -            
+       User Test.    Date: 10/20/24  15:20:38  maze.01      -            
+       User Test.    Date: 10/20/24  15:27:35  maze.01      -            
+       User Test.    Date: 10/21/24  15:00:59  maze.01      -            
+       User Test.    Date: 10/21/24  15:27:07  maze.01      -            
+       User Test.    Date: 10/21/24  15:40:40  maze.01      -            
+       User Test.    Date: 10/21/24  15:42:35  maze.01      -            
+       User Test.    Date: 10/21/24  15:47:51  maze.01      -            
+       User Test.    Date: 10/21/24  15:55:35  maze.01      -            
+       User Test.    Date: 10/21/24  15:57:46  maze.01      -            
+       User Test.    Date: 10/21/24  16:48:06  maze.01      -            
+   *** Grading Run.  Date: 10/21/24  16:48:50 
+       User Test.    Date: 10/21/24  17:04:50  maze.02      -            
+   *** Grading Run.  Date: 10/21/24  17:05:26 
+       User Test.    Date: 10/21/24  17:12:49  maze.02      -            
+   *** Grading Run.  Date: 10/21/24  17:14:28 
+       User Test.    Date: 10/21/24  17:18:18  maze.02      -            
+   *** Grading Run.  Date: 10/21/24  17:19:05 
+       User Test.    Date: 10/21/24  17:26:16  maze.02      -            
+   *** Grading Run.  Date: 10/21/24  17:26:50 
+       User Test.    Date: 10/21/24  17:30:03  maze.02      -            
+   *** Grading Run.  Date: 10/21/24  17:30:36 
+       User Test.    Date: 10/21/24  17:38:52  maze.02      -            
+   *** Grading Run.  Date: 10/21/24  17:40:55 
+       User Test.    Date: 10/22/24  13:53:10  maze.03      -            
+   *** Grading Run.  Date: 10/22/24  13:54:26 
+Testing against the nextval specification
+Test completed okay
+Testing against non symetrical maze
+Test completed okay
+Testing against a set of random mazes
+Test completed okay
+Testing for correct operation and efficiency
+Building the maze....
+Congratulations! Your mouse has traversed the maze.
+ 
+++ Grade ++   50 = Points earned for correct answers.
+Your executed instruction count = 000006530
+
+++ Grade ++    0 = Points earned for code executed efficiency.
+Target executed: 15 = 0-4999  10 = 5000-5249  5 = 5250-5499  0 = 5500+ 
+
+++ Grade ++    5 = Points for code written. Your count is:  50.
+Target written : 15 = 00-40  10 = 41-45  5 = 46-50  0 = 51+
+
+-> Analyzing program documentation. 
+The heuristic algorithms used may have problems with your specific code. 
+Contact the instructor if you detect a problem with your grade. 
+DOCPH-0022 The program header format is adequate. 
+DOCHB-0.94 Use of code block headers is adequate. 
+DOCLC-0.96 Use of line comments is adequate. 
+++ Grade ++   20 = Points earned for correct documentation.    
+
+-> Calculating the total grade for the program.                  
+This grade is subject to adjustment by the instructor.           
+This grade will be reduced by any late submission penalty.       
+++ Grade ++   75 = Total grade generated by the Grading System.  
+
+-> Statistics on testing and grading                             
+    54  = Number of user tests.                                  
+     8  = Number of grading runs to get the program working.     
+     0  = Number of grading runs to improve efficiency or documentation. 
+
++- atyC;6&}xC6&k~C6&juiC86&zuzC=;&Zkyz&jgzk@&7658858:&&79@;:@8<&
+
+
+
+Building the file maze.ans for electronic submission...
+
