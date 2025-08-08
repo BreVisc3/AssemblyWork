@@ -1,0 +1,144 @@
+Microsoft (R) Macro Assembler Version 6.11		    10/23/24 16:30:22
+linkhll.asm						     Page 1 - 1
+
+
+				;-----------------------------------------------------------
+				;
+				; Program: Linkhll
+				;
+				; Function: Multiply two largest numbers out of four
+				;		INPUT: 4 unsigned word-sized numbers 
+				;			stored on the stack
+				;
+				;		OUTPUT: The product of multiplying the
+				;			two largest numbers in dx:ax
+				;
+				; Owner: Brendan Viscount
+				;
+				; Date: 10/23/2024
+				; 11/21/2016   Original Version
+				;
+				;
+				;---------------------------------------
+				         .model    small               ;
+				         .8086                         ;
+				         public    _linkhll            ;
+				;---------------------------------------
+ 0000				         .data
+				;---------------------------------------
+				;
+				; Data Segment
+				;
+				;---------------------------------------
+ 0000				         .code
+				;---------------------------------------
+				;
+				; Code Segment
+				;
+				;---------------------------------------
+ 0000				_linkhll: 
+
+					;---------------------------------------
+					; Load in parameters from the stack
+					;---------------------------------------
+ 0000  55				push bp				   ; Save base pointer location
+ 0001  8B EC				mov bp, sp             ; Move stack point to base pointer               
+ 0003  8B 46 04			    mov ax, [bp + 4]       ; Load v1
+ 0006  8B 5E 06			    mov bx, [bp + 6]       ; Load v2
+ 0009  8B 4E 08			    mov cx, [bp + 8]       ; Load v3
+ 000C  8B 56 0A			    mov dx, [bp + 10]      ; Load v4
+
+				;---------------------------------------
+				;
+				; SORTING TO GET 2 LARGEST IN AX AND BX
+				;
+				;---------------------------------------
+
+					;---------------------------------------
+					; Compare ax and cx
+					;---------------------------------------
+ 000F  3B C1				cmp ax, cx			   ; If cx is above, ax then swap
+ 0011  77 01				ja  skip2			   ; Skip if not
+ 0013  91				xchg ax, cx			   ; Swap bx and dx
+					;---------------------------------------
+					; Compare ax and dx
+					;---------------------------------------
+ 0014				skip2:
+ 0014  3B C2				cmp ax, dx			   ; If dx is above, ax then swap
+ 0016  77 01				ja skip3			   ; Skip if not
+ 0018  92				xchg ax, dx			   ; Swap bx and dx
+					;---------------------------------------
+					; Compare bx and cx
+					;---------------------------------------
+ 0019				skip3:
+ 0019  3B D9				cmp bx, cx			   ; If cx is above, bx then swap
+ 001B  77 02				ja skip4			   ; Skip if not
+ 001D  87 D9				xchg bx, cx			   ; Swap bx and dx
+					;---------------------------------------
+					; Compare bx and dx
+					;---------------------------------------
+ 001F				skip4:
+ 001F  3B DA				cmp bx, dx			   ; If dx is above, bx then swap
+ 0021  77 02				ja mult			   	   ; No more swaps time to multiply
+ 0023  87 DA				xchg bx, dx			   ; Swap bx and dx
+
+				;---------------------------------------
+				;
+				; MULTIPLY
+				;
+				;---------------------------------------
+ 0025				mult:
+ 0025  F7 E3				mul bx				   ; Multiply bx and ax (Largest 2 values now)
+
+				;---------------------------------------
+				;
+				; RESTORE
+				;
+				;---------------------------------------		
+ 0027  5D				pop bp				   			   ; Restore base pointer
+					
+					;-----------------------------------
+					; Return
+					;-----------------------------------
+ 0028  C3			         ret                           ; return
+				                                       ;
+				         end                           ; end source code
+				;---------------------------------------
+
+ 
+Microsoft (R) Macro Assembler Version 6.11		    10/23/24 16:30:22
+linkhll.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+DGROUP . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	16 Bit	 0000	  Word	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	16 Bit	 0029	  Word	  Public  'CODE'	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 0000h	 
+@DataSize  . . . . . . . . . . .	Number	 0000h	 
+@Interface . . . . . . . . . . .	Number	 0000h	 
+@Model . . . . . . . . . . . . .	Number	 0002h	 
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 DGROUP
+@fardata?  . . . . . . . . . . .	Text   	 FAR_BSS
+@fardata . . . . . . . . . . . .	Text   	 FAR_DATA
+@stack . . . . . . . . . . . . .	Text   	 DGROUP
+_linkhll . . . . . . . . . . . .	L Near	 0000	  _TEXT	Public
+mult . . . . . . . . . . . . . .	L Near	 0025	  _TEXT	
+skip2  . . . . . . . . . . . . .	L Near	 0014	  _TEXT	
+skip3  . . . . . . . . . . . . .	L Near	 0019	  _TEXT	
+skip4  . . . . . . . . . . . . .	L Near	 001F	  _TEXT	
+
+	   0 Warnings
+	   0 Errors
