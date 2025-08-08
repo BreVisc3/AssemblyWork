@@ -1,0 +1,180 @@
+@--------------------------------------------------------------------
+@   Program:     COPYFILE *** ARM VERSION ***
+@
+@   Function:    This program will read characters from the standard input
+@                device.  This can be the keyboard or a file that has been
+@                redirected to the standard input.
+@
+@                It allows the software to examine each character.
+@
+@                The character is then written to the standard output device.
+@                This can be the diplay or a file that has been redirected
+@                to the standard output.
+@
+@                The program terminates when the character that has been
+@                read and echoed matches the character stored in the
+@                variable named 'end_char'.
+@
+@                If reading from the keyboard then
+@                set 'end_char' to be 0Dh (enter key).
+@
+@                If reading from a file then
+@                set 'end_char' to be 1Ah (DOS eof character).
+@
+@                These are the four possible combinations
+@                for reading and writing data:
+@                -----------------------------------------------------------
+@                copyfile                    input=keyboard   output=display
+@                copyfile < input            input=file       output=display
+@                copyfile > output           input=keyboard   output=file
+@                copyfile < input > output   input=file       output=file
+@
+@   Restriction: The program hangs if you copy a file without the
+@                an EOF character.
+@
+@   Owner:       Dana Lasher
+@
+@   Date         Reason
+@   ----         ------
+@   07/18/2000   New version
+@---------------------------------------
+@----------------------------------
+@ Software Interrupt values
+@----------------------------------
+         .equ SWI_Open,  0x66     @Open  a file
+         .equ SWI_Close, 0x68     @Close a file
+         .equ SWI_PrStr, 0x69     @Write a null-ending string
+         .equ SWI_RdStr, 0x6a     @Read a string and terminate with null char
+         .equ SWI_Exit,  0x11     @Stop execution
+ 
+		 .global   _start
+         .text
+
+_start:
+@----------------------------------
+@ open input file
+@ - r0 points to the file name
+@ - r1 0 for input
+@ - the open swi is 66h
+@ - after the open r0 will have the file handle
+@----------------------------------
+         ldr  r0, =InFileName     @r0 points to the file name
+         ldr  r1, =0              @r1 = 0 specifies the file is input
+         swi  SWI_Open            @open the file ... r0 will be the file handle
+         ldr  r1, =InFileHandle   @r1 points to handle location
+         str  r0, [r1]            @store the file handle
+@----------------------------------
+@----------------------------------
+@ open output file
+@ - r0 points to the file name
+@ - r1 1 for output
+@ - the open swi is 66h
+@ - after the open r0 will have the file handle
+@----------------------------------
+         ldr  r0, =OutFileName    @r0 points to the file name
+         ldr  r1, =1              @r1 = 1 specifies the file is output
+         swi  SWI_Open            @open the file ... r0 will be the file handle
+         ldr  r1, =OutFileHandle  @r1 points to handle location
+         str  r0, [r1]            @store the file handle
+;----------------------------------
+@---------------------------------------
+@ Read a charcter without echo.
+@---------------------------------------
+@----------------------------------
+@ read a string from the input file
+@ - r0 contains the file handle
+@ - r1 points to the input string buffer
+@ - r2 contains the max number of characters to read
+@ - the read swi is 6ah
+@ - the input string will be terminated with 0
+@----------------------------------
+getloop:                          @
+         ldr  r0, =InFileHandle   @r0 points to the input file handle
+         ldr  r0, [r0]            @r0 has the input file handle
+         ldr  r1, =InputString    @r1 points to the input string
+         ldr  r2, =128            @r2 has the max size of the input string
+         swi  SWI_RdStr           @read a string from the input file
+         cmp  r0,#0               @no characters read means EOF
+         beq  exit                @so close and exit
+@---------------------------------@
+		 mov r3, #-1              @ Set input buffer 'index'
+		 mov r5, #0               @ Set output buffer 'index'
+getchar:
+
+        ldr  r1, =InputString    @r1 points to the input string
+		add  r3, r3, #1          @ Move to next char in buffer
+        ldrb r4, [r1, r3]        @ load a character from the buffer
+        cmp  r4, #0              @ check for null terminator (end of string)
+        beq  write_line          @ if null, read the next line
+
+
+        CMP     R4, #0x20              @ Check if its space (0x20)
+        BEQ     add_output
+        CMP     R4, #0x2E              @ Check if its period (0x2E)
+        BEQ     add_output
+        CMP     R4, #0x41              @ Check if its A (0x41)
+        BLT     getchar                @ If less than A, discard
+        CMP     R4, #0x5A              @ Check if its Z (0x5A)
+        BLE     add_output
+        CMP     R4, #0x61              @ Check if its a (0x61)
+        BLT     getchar                @ If less than a, check for uppercase letters
+        CMP     R4, #0x7A              @ Check if its z (0x7A)
+        BGT     getchar                @ If greater than z, discard
+        SUB     R4, R4, #0x20          @ Convert to uppercase (subtract 0x20)
+		
+		
+add_output:
+		ldr r1, =OutputString          @ load output buffer
+		strb r4, [r1, r5]              @ append character
+		add r5, r5, #1				   @ update index
+		b getchar                      @ get next character  
+
+@----------------------------------
+@ Write the outputs string
+@----------------------------------
+write_line:                       @
+         ldr r1, =OutputString		  @ load output string 
+		 mov r4, #0					  @ load null terminator
+		 strb r4, [r1, r5]			  @ append to buffer
+
+		 ldr r0, =OutFileHandle		  @ load output file handle
+		 ldr r0, [r0]				  @ 
+		 swi SWI_PrStr  			  @ print output string
+		 ldr r1, =CRLF				  @ load newline
+		 swi SWI_PrStr				  @ print newline
+
+		 b getloop					  @ get the next line
+@----------------------------------
+
+@----------------------------------
+@ Close input and output files
+@ Terminate the program
+@----------------------------------
+exit:                            @
+         ldr  r0, =InFileHandle   @r0 points to the input  file handle
+         ldr  r0, [r0]            @r0 has the input file handle
+         swi  SWI_Close           @close the file
+                                  @
+         ldr  r0, =OutFileHandle  @r0 points to the output file handle
+         ldr  r0, [r0]            @r0 has the output file handle
+         swi  SWI_Close           @close the file
+                                  @
+         swi  SWI_Exit            @terminate the program
+@----------------------------------
+@----------------------------------
+         .data                    @ start data
+@----------------------------------
+InFileHandle:  .skip 4            @4 byte field to hold the input  file handle
+OutFileHandle: .skip 4            @4 byte field to hold the output file handle
+                                  @
+InFileName:    .asciz "KEY.IN"    @Input  file name, null terminated
+                                  @
+InputString:   .skip 128		  @Input string
+OutputString:  .skip 128          @Output string  
+                                  @
+CRLF:          .byte 13, 10, 0    @CR LF
+                                  @
+OutFileName:   .asciz "key.OUT"   @Output file name, null terminated
+@----------------------------------
+
+         .end
